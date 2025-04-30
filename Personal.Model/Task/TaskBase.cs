@@ -1,5 +1,4 @@
 ﻿using Personal.Model.Base;
-using Personal.Model.Users;
 
 namespace Personal.Model.Task;
 

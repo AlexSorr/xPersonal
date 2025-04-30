@@ -25,13 +25,13 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
     /// <summary>
     /// Набор сущностей типа <typeparamref name="T"/>
     /// </summary>
-    protected DbSet<T> EntitySet => _context?.Set<T>();
+    protected DbSet<T> EntitySet => _context?.Set<T>() ?? throw new ArgumentNullException($"DbSet<{typeof(T).Name}> is null");
 
     /// <summary>
     /// Запрос сущностей типа <typeparamref name="T"/> с применением жадной загрузки 
     /// связанных данных.
     /// </summary>
-    protected IQueryable<T> PreloadedEntityQuery => EntitySet != null ? ApplyEagerLoading(EntitySet) : throw new ArgumentNullException($"DbSet<{typeof(T).Name}> IS NULL");
+    protected IQueryable<T> PreloadedEntityQuery => ApplyEagerLoading(EntitySet);
 
     /// <summary>
     /// Логгер для записи событий и ошибок, связанных с операциями в сервисе.
@@ -95,19 +95,19 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
     /// <inheritdoc/>
     public async Task SaveBatchAsync(IEnumerable<T> entities, int batchSize = defaultSavingBatchSize) {
         if (entities == null || !entities.Any()) return;
+        
         using (IDbContextTransaction transaction = await _context.Database.BeginTransactionAsync()) {
-            List<T> package = entities.ToList();
+            IList<T> package = entities as IList<T> ?? entities.ToList();
+            int packageCount = package.Count();
             try {
-                int currentIndex = 0;
-                while (currentIndex < package.Count) {
-                    List<T> batch = package.Skip(currentIndex).Take(batchSize).ToList(); 
+                for (int currentIndex = 0; currentIndex < packageCount; currentIndex += batchSize) {
+                    IEnumerable<T> batch = package.Skip(currentIndex).Take(batchSize);
                     await _context.AddRangeAsync(batch);  
                     await _context.SaveChangesAsync();  
-                    currentIndex += batch.Count; 
-                }
-                await transaction.CommitAsync(); // Завершаем транзакцию
+                } 
+                await transaction.CommitAsync();
             } catch {
-                await transaction.RollbackAsync(); // Откат транзакции в случае ошибки
+                await transaction.RollbackAsync();
                 throw;
             } finally {
                 _context.ChangeTracker.Clear();

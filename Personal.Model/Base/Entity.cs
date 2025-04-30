@@ -32,8 +32,8 @@ public abstract class Entity : IEntity {
     /// <returns>Возвращает <c>true</c>, если объекты идентичны по типу и идентификатору.</returns>
     public override bool Equals(object? obj) {
         if (ReferenceEquals(this, obj)) return true;
-        if (obj == null || GetType() != obj.GetType()) return false;
-        return Id == ((Entity)obj).Id;
+        if (obj is not Entity other) return false;
+        return Id == other.Id;
     }
 
     /// <summary>
@@ -60,5 +60,29 @@ public abstract class Entity : IEntity {
     /// <param name="right">Вторая сущность для сравнения</param>
     /// <returns>Возвращает <c>true</c>, если сущности не равны по идентификатору.</returns>
     public static bool operator !=(Entity? left, Entity? right) => !(left == right);
+
+}
+
+public static class EntityExtensions {
+
+    /// <summary>
+    /// Сохранить сущность
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    [Obsolete("Заглушка, метод не реализован")]
+    public static void Save(this Entity entity) {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Удалить сущность
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    [Obsolete("Заглушка, метод не реализован")]
+    public static void Delete(this Entity entity) {
+        throw new NotImplementedException();
+    } 
 
 }

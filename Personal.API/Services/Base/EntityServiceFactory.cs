@@ -20,7 +20,7 @@ public class EntityServiceFactory : IEntityServiceFactory {
     /// <inheritdoc/>
     public IEntityService<T> Create<T>() where T : class, IEntity {
         using (var scope = _serviceProvider.CreateScope()) 
-            return _serviceProvider.GetService<IEntityService<T>>();
+            return _serviceProvider.GetService<IEntityService<T>>() ?? throw new Exception($"Service {nameof(T)} is null");
     }
 
 }
