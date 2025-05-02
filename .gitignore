@@ -6,3 +6,11 @@
 
 /Personal.Model/bin
 /Personal.Model/obj
+
+/Personal.Data/bin
+/Personal.Data/obj
+/Personal.Data/Migrations
+
+/Personal.Testing/bin
+/Personal.Testing/obj
+/temp
