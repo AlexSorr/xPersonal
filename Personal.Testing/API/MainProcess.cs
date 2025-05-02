@@ -14,9 +14,9 @@ public class MainProcess {
 
     public async Task GetUserByIdAsync() {
         long user_id;
-        string id = Helper.GetRequested("user id");
-        while (!long.TryParse(id.Trim(), out user_id))
-            id = Helper.GetRequested("user id");
+        string id = Helper.GetRequested("user id").Trim();
+        while (!long.TryParse(id, out user_id))
+            id = Helper.GetRequested("user id").Trim();
         
         var res = await _factory.Create<User>().LoadByIdAsync(user_id);
         if (res == null) {

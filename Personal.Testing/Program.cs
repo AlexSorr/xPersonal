@@ -9,13 +9,12 @@ using Personal.Testing.API;
 string Hostname = "localhost";
 string Database = "personal_db";
 string Username = "postgres";
-string Password = "194352Me";
+string Password = "";
 
 while (string.IsNullOrWhiteSpace(Password))
-    Password = Helper.GetRequested(nameof(Password));
+    Password = Helper.GetRequested($"database {nameof(Password)}");
 
 string connectionString = $"Host={Hostname};Database={Database};Username={Username};Password={Password}";
-
 
 
 using IHost host = Host.CreateDefaultBuilder(args)
@@ -31,13 +30,22 @@ using IHost host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
-    // Запуск вашей логики
-    var processor = host.Services.GetRequiredService<MainProcess>();
-    await processor.AddNewUser();
+System.Console.Clear();
 
+var processor = host.Services.GetRequiredService<MainProcess>();
 
-//Загрузка пользователя тестова
+int commandId;
+string command = Helper.GetRequested(nameof(command));
+while (!int.TryParse(command, out commandId))
+    command = Helper.GetRequested(nameof(command));
 
-//using var db = new ApplicationDbContext(options);
-//var creator = new UserLoader(db);
-//await creator.StartRegister();
+switch (commandId) {
+    case 1:
+        await processor.AddNewUser();
+        break;
+    case 2:
+        await processor.GetUserByIdAsync();
+        break;
+    default:
+        break;
+}
