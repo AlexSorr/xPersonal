@@ -13,4 +13,8 @@
 
 /Personal.Testing/bin
 /Personal.Testing/obj
+
+/Personal.Service/bin
+/Personal.Service/obj
 /temp
+.vscode/settings.json

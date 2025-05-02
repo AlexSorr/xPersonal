@@ -1,6 +1,6 @@
 ﻿using IEntity = Personal.Model.Base.IEntity;
 
-namespace Personal.API.Services.Base;
+namespace Personal.Services.Base;
 
 /// <summary>
 /// Фабрика для создания экземпляров сервисов, реализующих <see cref="IEntityService{T}"/>.

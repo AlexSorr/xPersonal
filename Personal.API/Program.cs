@@ -5,8 +5,7 @@ using System.Reflection;
 
 using Personal.Data;
 
-using Personal.API.Services.Base;
-using Personal.API.Services.Messaging;
+using Personal.Services.Base;
 
 WebApplication app = BuildApp(WebApplication.CreateBuilder(args));
 
@@ -107,7 +106,6 @@ public static class ServiceCollectionExtension {
         services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
         services.AddScoped<IEntityServiceFactory, EntityServiceFactory>();
 
-        services.AddSingleton<IRabbitMQService, RabbitMQService>();
     }
 
 }

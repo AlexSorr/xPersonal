@@ -1,6 +1,6 @@
-using Personal.API.Services.Base;
 using Personal.Model.Base;
 using Personal.Model.Users;
+using Personal.Services.Base;
 
 namespace Personal.Testing.API;
 
@@ -18,12 +18,11 @@ public class MainProcess {
         while (!long.TryParse(id, out user_id))
             id = Helper.GetRequested("user id").Trim();
         
-        var res = await _factory.Create<User>().LoadByIdAsync(user_id);
+        var res = await GetEntityService<User>().LoadByIdAsync(user_id);
         if (res == null) {
             System.Console.WriteLine("User not found");
             return;
         }
-
         System.Console.WriteLine(res.ToString());
         System.Console.ReadKey();    
     }

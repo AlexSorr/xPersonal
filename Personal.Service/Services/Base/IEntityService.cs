@@ -2,7 +2,7 @@
 
 using Personal.Model.Base;
 
-namespace Personal.API.Services.Base;
+namespace Personal.Services.Base;
 
 /// <summary>
 /// Интерфейс, определяющий методы для работы с сущностями в базе данных.

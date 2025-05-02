@@ -1,5 +1,5 @@
 using Personal.Model.Base;
-using Personal.API.Services.Base;
+using Personal.Services.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dNetAPI.Controllers.Base;

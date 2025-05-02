@@ -1,6 +1,7 @@
-﻿using IEntity = Personal.Model.Base.IEntity;
+﻿using Microsoft.Extensions.DependencyInjection;
+using IEntity = Personal.Model.Base.IEntity;
     
-namespace Personal.API.Services.Base;
+namespace Personal.Services.Base;
 
 /// <summary>
 /// Фабрика для создания экземпляров <see cref="IEntityService{T}"/> с использованием DI-контейнера.

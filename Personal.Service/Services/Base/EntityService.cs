@@ -6,8 +6,9 @@ using System.Reflection;
 
 using Personal.Data;
 using Personal.Model.Base;
+using Microsoft.Extensions.Logging;
 
-namespace Personal.API.Services.Base;
+namespace Personal.Services.Base;
 
 /// <summary>
 /// Сервис для работы с сущностями типа <typeparamref name="T"/> в базе данных.
@@ -175,7 +176,6 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
         foreach (var navigation in entityType.GetNavigations()) {
             if (navigation.IsOnDependent && navigation.ForeignKey.IsOwnership)
                 continue;
-
             query = query.Include(navigation.Name);
         }
 

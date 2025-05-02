@@ -34,6 +34,7 @@ public class User : Entity {
     /// <summary>
     /// Параметры пользователя
     /// </summary>
+    /// FIXME Не загружаются из БД, хотя связи вроде корректно настроены
     public List<UserStat> Stats { get; private set; } = null!;
 
     /// <summary>

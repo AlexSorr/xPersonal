@@ -2,9 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Personal.Data;
 using Personal.Testing;
-using Personal.API.Services.Base;
 using Microsoft.Extensions.Hosting;
 using Personal.Testing.API;
+using Personal.Services.Base;
+using Personal.Service.Managers;
 
 string Hostname = "localhost";
 string Database = "personal_db";
@@ -29,6 +30,8 @@ using IHost host = Host.CreateDefaultBuilder(args)
         services.AddTransient<MainProcess>();
     })
     .Build();
+
+EntityManagerInitializer.InitializeAllEntityManagers(host.Services);
 
 System.Console.Clear();
 

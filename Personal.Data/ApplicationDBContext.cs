@@ -74,6 +74,9 @@ public class ApplicationDbContext : DbContext {
     /// </summary>
     public DbSet<User> User { get; set; }
 
+    /// <summary>
+    /// Инфа о пользователе
+    /// </summary>
     public DbSet<UserInfo> UserInfo { get; set; }
 
     /// <summary>
@@ -132,7 +135,7 @@ public class ApplicationDbContext : DbContext {
 
     /// <summary>
     /// Применить настройки для приватных внешних ключей - задать имя колонок
-    /// TODO Какого то хуя не работает, колонки с дебильными именами создаются, надо решить
+    /// FIXME Какого то хуя не работает, колонки с дебильными именами создаются, надо решить
     /// </summary>
     /// <param name="modelBuilder">Построитель модели для настройки сущностей</param>
     private void ApplyPrivateFkColumns(ModelBuilder modelBuilder) {
