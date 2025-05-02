@@ -11,6 +11,13 @@ namespace Personal.API.Services.Base;
 public interface IEntityService<T> where T : IEntity {
 
     /// <summary>
+    /// Получить все сущности типа <typeparamref name="T"/>.
+    /// </summary>
+    /// <returns>Перечисление всех сущностей <typeparamref name="T"/> из базы данных.</returns>
+    public IEnumerable<T> All();
+
+
+    /// <summary>
     /// Получить сущность <typeparamref name="T"/> по Id
     /// </summary>
     /// <param name="id">Идентификатор сущности</param>
@@ -73,6 +80,12 @@ public interface IEntityService<T> where T : IEntity {
     /// <param name="id">Идентификатор сущности для удаления.</param>
     /// <returns>Задача, представляющая асинхронную операцию удаления сущности по идентификатору.</returns>
     public Task DeleteAsync(long id);
+
+    /// <summary>
+    /// Проверяет, существует ли сущность хоть одна сущность в базе данных.
+    /// </summary>
+    /// <returns>Возвращает true, если сущность существует в базе данных, иначе false.</returns>
+    public bool EntityExists();
 
     /// <summary>
     /// Проверяет, существует ли сущность с заданным идентификатором в базе данных.

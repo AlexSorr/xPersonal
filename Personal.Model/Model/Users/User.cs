@@ -34,7 +34,7 @@ public class User : Entity {
     /// <summary>
     /// Параметры пользователя
     /// </summary>
-    public List<UserStat> Stats { get; private set; } = new List<UserStat>();
+    public List<UserStat> Stats { get; private set; } = null!;
 
     /// <summary>
     /// Кошелек пользователя

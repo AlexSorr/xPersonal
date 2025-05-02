@@ -1,6 +1,8 @@
 using Personal.Model.Users;
 using Personal.Data;
 using System.Security.Cryptography;
+using Personal.API.Services.Base;
+using Personal.Model.Base;
 
 namespace Personal.Testing;
 
@@ -9,26 +11,40 @@ namespace Personal.Testing;
 /// </summary>
 public class UserLoader {
 
-    private readonly ApplicationDbContext _db;
-    private User? result;
+    private readonly IEntityServiceFactory _factory;
 
-    public UserLoader(ApplicationDbContext db) { _db = db; }
+    public UserLoader(IEntityServiceFactory factory) => _factory = factory;
 
-    public async Task StartRegister() {
-        if (!_db.Set<UserParameter>().Any())
-            await CreateParameters();
+    private IEntityService<T> GetEntityService<T>() where T : class, IEntity => _factory.Create<T>();
+
+    /// <summary>
+    /// Вручную завести пользователя
+    /// </summary>
+    /// <returns></returns>
+    public async Task CreateUser() {
+        await CheckAndCreateUserParameters();
 
         string username = Helper.GetRequested(nameof(username));
         while (string.IsNullOrWhiteSpace(username)) 
             username = Helper.GetRequested(nameof(username));
-
+        
         UserInfo info = RequestPersonalInfo();
-        var stats = _db.Set<UserParameter>();
+        var stats = GetEntityService<UserParameter>().All();
 
-        result = new User(username, info, stats);
+        var user = new User(username, info, stats);
+        await RequsetUserSaving(user);
+    }
 
-        await RequsetUserSaving(result);
-
+    private async Task CheckAndCreateUserParameters() {
+        var service = GetEntityService<UserParameter>();
+        if (!service.EntityExists()) {
+            var parameters = new [] {
+                new UserParameter() { Name = "Health" },
+                new UserParameter() { Name = "Comfort" },
+                new UserParameter() { Name = "Proficiency" }
+            };
+            await service.SaveBatchAsync(parameters);
+        }
     }
 
     private UserInfo RequestPersonalInfo() {
@@ -48,34 +64,23 @@ public class UserLoader {
         return new UserInfo(FirstName, LastName, date);
     }
 
-    private async Task CreateParameters() {
-        var parameters = new [] {
-            new UserParameter() { Name = "Health" },
-            new UserParameter() { Name = "Comfort" },
-            new UserParameter() { Name = "Proficiency" }
-        };
-        _db.Set<UserParameter>().AddRange(parameters);
-        await _db.SaveChangesAsync();
-        Console.WriteLine("Parameters created");
-    }
-
     private async Task RequsetUserSaving(User user) {
         Console.Clear();
         if (user == null) return;
 
         System.Console.WriteLine(user.ToString());
         System.Console.Write("Save? [y/n]");
-        string res = System.Console.ReadLine() ?? string.Empty;
-        while (string.IsNullOrWhiteSpace(res) || res.Trim().ToLower() != "y") 
-            res = System.Console.ReadLine() ?? string.Empty;
+
+        string res = (System.Console.ReadLine() ?? string.Empty).Trim().ToLower();
+        while (!new [] { "y", "n" }.Contains(res)) 
+            res = (System.Console.ReadLine() ?? string.Empty).Trim().ToLower();
 
         string message = "Canceled";
         if (res == "y") {
-            await _db.Set<User>().AddAsync(user);
-            await _db.SaveChangesAsync();
+            var service = GetEntityService<User>();
+            await service.SaveAsync(user);
             message = $"User {user?.FullName} saved sucessfuly";
         }
         System.Console.WriteLine(message);
     }
-
 }

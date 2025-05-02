@@ -31,48 +31,48 @@ public abstract class APIBaseController<T> : ControllerBase where T : IEntity {
         _entityService = entityService;
     }
 
-    //Методы для обработки запросов, здесь ради примера, использовать в наследниках
-    #region Get
+    // //Методы для обработки запросов, здесь ради примера, использовать в наследниках
+    // #region Get
 
-    /// <summary>
-    /// Поиск по id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns>Id</returns>
-    [HttpGet("get_id_{id}")]
-    public async Task<ActionResult<long>> GetById(long id) => NotFound();
+    // /// <summary>
+    // /// Поиск по id
+    // /// </summary>
+    // /// <param name="id"></param>
+    // /// <returns>Id</returns>
+    // [HttpGet("get_id_{id}")]
+    // public async Task<ActionResult<long>> GetById(long id) => NotFound();
     
-    #endregion
+    // #endregion
 
-    #region Post
+    // #region Post
 
-    /// <summary>
-    /// Создание новой сущности
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost("create_new")]
-    public async Task<ActionResult> Create() => NoContent();
+    // /// <summary>
+    // /// Создание новой сущности
+    // /// </summary>
+    // /// <returns></returns>
+    // [HttpPost("create_new")]
+    // public async Task<ActionResult> Create() => NoContent();
 
-    #endregion
+    // #endregion
 
-    #region Delete
+    // #region Delete
 
-    /// <summary>
-    /// Удаление по id
-    /// </summary>
-    /// <param name="id">Id</param>
-    [HttpDelete("delete_id_{id}")]
-    public async Task<IActionResult> Delete(long id) => NoContent();
+    // /// <summary>
+    // /// Удаление по id
+    // /// </summary>
+    // /// <param name="id">Id</param>
+    // [HttpDelete("delete_id_{id}")]
+    // public async Task<IActionResult> Delete(long id) => NoContent();
 
     
-    #endregion
+    // #endregion
 
-    #region Put
+    // #region Put
 
-    [HttpPut("put_id_{id}")]
-    public async Task<ActionResult> Put() => NoContent();
+    // [HttpPut("put_id_{id}")]
+    // public async Task<ActionResult> Put() => NoContent();
 
-    #endregion
+    //#endregion
 
     /// <summary>
     /// Обрабатывает ошибки, возникающие в дочерних контроллерах, и возвращает соответствующий ответ.

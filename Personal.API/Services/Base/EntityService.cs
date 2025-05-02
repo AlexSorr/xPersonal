@@ -15,7 +15,6 @@ namespace Personal.API.Services.Base;
 /// </summary>
 /// <typeparam name="T">Тип сущности, которая будет обрабатываться сервисом.</typeparam>
 public class EntityService<T> : IEntityService<T> where T : class, IEntity {
-
     #region properties
 
     /// <summary>
@@ -26,7 +25,7 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
     /// <summary>
     /// Набор сущностей типа <typeparamref name="T"/>
     /// </summary>
-    protected DbSet<T> EntitySet => _context?.Set<T>() ?? throw new ArgumentNullException($"DbSet<{typeof(T).Name}> is null");
+    protected DbSet<T> EntitySet => _context.Set<T>();
 
     /// <summary>
     /// Запрос сущностей типа <typeparamref name="T"/> с применением жадной загрузки 
@@ -68,10 +67,17 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
     #region InterfacesImplementation
 
     /// <inheritdoc/>
+    public IEnumerable<T> All() => PreloadedEntityQuery;
+
+    #pragma warning disable CS8603
+
+    /// <inheritdoc/>
     public T LoadById(long id) => PreloadedEntityQuery.FirstOrDefault(entity => entity.Id == id);
 
     /// <inheritdoc/>
     public async Task<T> LoadByIdAsync(long id) => await PreloadedEntityQuery.FirstOrDefaultAsync(entity => entity.Id == id);
+
+    #pragma warning restore CS8603
 
     /// <inheritdoc/>
     public async Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate) => await PreloadedEntityQuery.Where(predicate).ToListAsync();
@@ -137,11 +143,20 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
         try { await _context.SaveChangesAsync(); } catch { throw; }
     }
 
+
+    /// <inheritdoc/>
+     public bool EntityExists() => EntitySet.Any();
+
+
     /// <inheritdoc/>
     public bool EntityExists(long id) => EntitySet.Any(x => x.Id == id);
 
+    #pragma warning disable CS8601
+
     /// <inheritdoc/>
     public bool EntityExists(long id, out T entity) => (entity = EntitySet.Find(id)) != null;
+
+    #pragma warning restore CS8601
 
     #endregion
 
@@ -153,14 +168,17 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
     /// <param name="query"></param>
     /// <returns></returns>
     private IQueryable<T> ApplyEagerLoading(IQueryable<T> query) {
-        IEnumerable<string> navigationProperties = GetNavigationPropertiesForType(typeof(T));
+        var entityType = _context.Model.FindEntityType(typeof(T));
+        if (entityType == null)
+            return query;
 
-        foreach (string property in navigationProperties) {
-            query = query.Include(property);
-            IEnumerable<string> nestedProperties = GetNavigationPropertiesForType(typeof(T).GetProperty(property)?.PropertyType);
-            foreach (string nestedProperty in nestedProperties) 
-                query = query.Include($"{property}.{nestedProperty}");
+        foreach (var navigation in entityType.GetNavigations()) {
+            if (navigation.IsOnDependent && navigation.ForeignKey.IsOwnership)
+                continue;
+
+            query = query.Include(navigation.Name);
         }
+
         return query;
     }
 
