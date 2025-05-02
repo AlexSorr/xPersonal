@@ -3,6 +3,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
 
+using Personal.Data;
+
 using Personal.API.Services.Base;
 using Personal.API.Services.Messaging;
 

@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Personal.Model\Personal.Model.csproj" />
+    <ProjectReference Include="..\Personal.Data\Personal.Data.csproj" />
   </ItemGroup>
 
 </Project>

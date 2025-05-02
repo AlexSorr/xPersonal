@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
 
+using Personal.Data;
 using Personal.Model.Base;
 
 namespace Personal.API.Services.Base;
