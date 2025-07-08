@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata;
+using Humanizer;
 using Personal.Model.Base;
 using Personal.Model.Wallet;
 
@@ -48,6 +49,21 @@ public class User : Entity {
     /// Полное имя пользователя
     /// </summary>
     public string FullName => Info?.FullName ?? string.Empty;
+
+    /// <summary>
+    /// Краткая инфо - Id, username, registrationDate
+    /// </summary>
+    public string ShortInfo => $"Id: {Info?.Id} Username: {Username} RegDate: {CreationDate}";
+
+    /// <summary>
+    /// Пользователь заблокирован
+    /// </summary>
+    public bool IsBlocked { get; set; }
+
+    /// <summary>
+    /// Дата блокировки
+    /// </summary>
+    public DateTime BlockDate { get; set; }
 
     /// <summary>
     /// Уровень пользователя

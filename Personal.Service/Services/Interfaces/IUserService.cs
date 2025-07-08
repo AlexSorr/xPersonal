@@ -18,4 +18,10 @@ public interface IUserService : IEntityService<User> {
     /// <param name="user">Пользователь</param>
     public Task BlockUser(User user);
 
+    /// <summary>
+    /// Заблокировать множество пользователей
+    /// </summary>
+    /// <param name="users">Список пользователей</param>
+    public Task BlockUser(IEnumerable<User> users);
+
 }
