@@ -182,6 +182,7 @@ public class EntityService<T> : IEntityService<T> where T : class, IEntity {
         return query;
     }
 
+    //TODO проверить потом, надо ли оно, может, снести
     /// <summary>
     /// Получить список имен публичных свойств сущности типа <paramref name="type"/>.
     /// </summary>

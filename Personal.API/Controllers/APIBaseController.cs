@@ -2,7 +2,7 @@ using Personal.Model.Base;
 using Personal.Services.Base;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dNetAPI.Controllers.Base;
+namespace Personal.API.Controllers;
 
 /// <summary>
 /// Базовый контроллер для работы с сущностями типа <typeparamref name="T"/>.

@@ -1,0 +1,107 @@
+.
+├── .gitignore
+├── .vscode
+│   └── settings.json
+├── get_project_structure.sh
+├── Personal.API
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Controllers
+│   │   ├── APIBaseController.cs
+│   │   └── TaskController.cs
+│   ├── Models
+│   │   ├── AppUser.cs
+│   │   └── DTO
+│   │       ├── LoginDTO.cs
+│   │       └── RegisterDTO.cs
+│   ├── Personal.API.csproj
+│   ├── Personal.API.http
+│   ├── Program.cs
+│   └── Properties
+│       └── launchSettings.json
+├── Personal.Data
+│   ├── ApplicationDBContext.cs
+│   ├── ApplicationDbContextFactory.cs
+│   ├── dotnet_helper.sh
+│   ├── Migrations
+│   │   ├── 20250503155520_migration-2025-05-03_18-55-18.cs
+│   │   ├── 20250503155520_migration-2025-05-03_18-55-18.Designer.cs
+│   │   ├── 20250503155538_migration-2025-05-03_18-55-36.cs
+│   │   ├── 20250503155538_migration-2025-05-03_18-55-36.Designer.cs
+│   │   └── ApplicationDbContextModelSnapshot.cs
+│   └── Personal.Data.csproj
+├── Personal.Model
+│   ├── Extensions
+│   ├── Helper
+│   │   └── UserHelper.cs
+│   ├── Model
+│   │   ├── Base
+│   │   │   ├── Entity.cs
+│   │   │   ├── HierarchicalEntity.cs
+│   │   │   ├── IEntity.cs
+│   │   │   ├── IHierarchicalEntity.cs
+│   │   │   ├── Interfaces
+│   │   │   ├── IUserAttribute.cs
+│   │   │   └── UserAttribute.cs
+│   │   ├── Events
+│   │   ├── Extensions
+│   │   ├── Task
+│   │   │   ├── Interfaces
+│   │   │   │   └── ITaskBase.cs
+│   │   │   ├── PeriodicTask.cs
+│   │   │   └── TaskBase.cs
+│   │   ├── Users
+│   │   │   ├── User.cs
+│   │   │   ├── UserInfo.cs
+│   │   │   ├── UserParameter.cs
+│   │   │   └── UserStat.cs
+│   │   └── Wallet
+│   │       ├── Actions
+│   │       │   ├── AccountAction.cs
+│   │       │   ├── DTO
+│   │       │   │   └── AccountActionDTO.cs
+│   │       │   ├── ExpenseAction.cs
+│   │       │   ├── IncomeAction.cs
+│   │       │   └── TransactionAction.cs
+│   │       ├── Entities
+│   │       │   ├── Account.cs
+│   │       │   ├── ActionCategory.cs
+│   │       │   ├── Currency.cs
+│   │       │   └── Wallet.cs
+│   │       └── Interfaces
+│   │           ├── IAccountAction.cs
+│   │           └── IBalanceHolder.cs
+│   └── Personal.Model.csproj
+├── Personal.Service
+│   ├── Managers
+│   │   ├── EntityManager.cs
+│   │   └── EntityManagerInitializer.cs
+│   ├── Personal.Service.csproj
+│   └── Services
+│       ├── Base
+│       │   ├── EntityService.cs
+│       │   └── EntityServiceFactory.cs
+│       └── Interfaces
+│           ├── IEntityService.cs
+│           └── IEntityServiceFactory.cs
+├── Personal.sln
+├── Personal.Testing
+│   ├── .vscode
+│   │   └── settings.json
+│   ├── create_migrations.sh
+│   ├── Helper
+│   │   └── Helper.cs
+│   ├── Loaders
+│   │   ├── BudgetLoader.cs
+│   │   └── UserLoader.cs
+│   ├── MainProcess.cs
+│   ├── Personal.Testing.csproj
+│   ├── Program.cs
+│   └── SQL
+│       └── queries.sql
+├── project-structure.txt
+└── temp
+    ├── Money-Flow-Transactions.csv
+    └── project-structure.txt
+
+36 directories, 69 files
