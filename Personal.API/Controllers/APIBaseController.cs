@@ -1,5 +1,4 @@
-using Personal.Model.Base;
-using Personal.Services.Base;
+using Personal.Models.Model.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Personal.API.Controllers;
@@ -7,7 +6,7 @@ namespace Personal.API.Controllers;
 /// <summary>
 /// Базовый контроллер для работы с сущностями типа <typeparamref name="T"/>.
 /// </summary>
-/// <typeparam name="T">Тип сущности, с которой работает контроллер. Должен реализовывать интерфейс <see cref="IEntity"/>.</typeparam>
+[ApiController]
 [Route("api/[controller]")]
 public abstract class APIBaseController<T> : ControllerBase where T : IEntity {
 
@@ -19,16 +18,15 @@ public abstract class APIBaseController<T> : ControllerBase where T : IEntity {
     /// <summary>
     /// Сервис для работы с сущностями типа <typeparamref name="T"/>.
     /// </summary>
-    protected readonly IEntityService<T> _entityService;
+    //protected readonly IEntityService<T> _entityService;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса <see cref="APIBaseController{T}"/> с указанными параметрами.
     /// </summary>
     /// <param name="logger">Логгер для логирования событий</param>
-    /// <param name="entityService">Сервис для работы с сущностями</param>
-    protected APIBaseController(ILogger<APIBaseController<T>> logger, IEntityService<T> entityService) {
+    protected APIBaseController(ILogger<APIBaseController<T>> logger) {
         _logger = logger;
-        _entityService = entityService;
+        //_entityService = entityService;
     }
 
     // //Методы для обработки запросов, здесь ради примера, использовать в наследниках

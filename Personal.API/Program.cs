@@ -3,9 +3,11 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
 
-using Personal.Data;
 
 using Personal.Services.Base;
+using Personal.Models.Data;
+using Personal.Services.ExtensionPonints;
+using Personal.Services.Components;
 
 WebApplication app = BuildApp(WebApplication.CreateBuilder(args));
 
@@ -67,8 +69,8 @@ public static class ServiceCollectionExtension {
     /// <param name="services">Коллекция сервисов для конфигурации.</param>
     /// <param name="configuration">Конфигурация приложения с настройками подключения.</param>
     public static void ApplyDatabaseContext(this IServiceCollection services, IConfiguration configuration) {
-        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-        //.UseLazyLoadingProxies());
+        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+        /*.UseLazyLoadingProxies()*/);
     }
 
     /// <summary>
@@ -105,6 +107,7 @@ public static class ServiceCollectionExtension {
 
         services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
         services.AddScoped<IEntityServiceFactory, EntityServiceFactory>();
+        services.AddScoped(typeof(IUserService), typeof(UserService));
 
     }
 

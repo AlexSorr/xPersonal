@@ -23,13 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services/Messaging/RabbitMQ/" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Personal.Model\Personal.Model.csproj" />
-    <ProjectReference Include="..\Personal.Data\Personal.Data.csproj" />
-    <ProjectReference Include="..\Personal.Service\Personal.Service.csproj" />
+    <ProjectReference Include="..\Personal.Models\Personal.Models.csproj" />
+    <ProjectReference Include="..\Personal.Services\Personal.Services.csproj" />
   </ItemGroup>
 
 </Project>
