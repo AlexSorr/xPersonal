@@ -4,17 +4,9 @@
 /Personal.API/Logs
 /Personal.API/Migrations
 
-/Personal.Model/bin
-/Personal.Model/obj
+/Personal.Models/bin
+/Personal.Models/obj
 
-/Personal.Data/bin
-/Personal.Data/obj
-/Personal.Data/Migrations
-
-/Personal.Testing/bin
-/Personal.Testing/obj
-
-/Personal.Service/bin
-/Personal.Service/obj
-/temp
+/Personal.Services/bin
+/Personal.Services/obj
 .vscode/settings.json
