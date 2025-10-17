@@ -1,7 +1,6 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
 
-
 using Personal.Models.Model.Users;
 using Personal.Models.Data;
 
@@ -23,7 +22,9 @@ public class UserService : EntityService<User>, IUserService {
 
 
     /// <inheritdoc/>
+    // TESTME
     public async Task<RegistrationResult> RegistrateUserAsync(TelegramUser telegramUser) {
+
         var user = new User(telegramUser);
         var result = new RegistrationResult(user);
         await ValidateRegistrationDataAsync(result);
@@ -32,11 +33,12 @@ public class UserService : EntityService<User>, IUserService {
             await user.SaveAsync();
         
         return result;
+
     }
 
 
-
     /// <inheritdoc/>
+    /// TESTME
     public async Task ValidateRegistrationDataAsync(RegistrationResult registrationResult) {
         if (registrationResult == null)
             return;
