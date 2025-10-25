@@ -5,6 +5,7 @@ using System.Reflection;
 
 using Personal.Models.Model.Base;
 using Personal.Models.Model.Users;
+using System.Text.Json;
 
 
 namespace Personal.Models.Data;
@@ -83,7 +84,8 @@ public class ApplicationDbContext : DbContext {
     private void ApplyForeignKeyConfiguration(ModelBuilder modelBuilder) {
 
         // Свойства пользователя
-        modelBuilder.Entity<User>(entity => {
+        modelBuilder.Entity<User>(entity =>
+        {
             entity.HasOne(user => user.TelegramUser)
                 .WithOne(tgUser => tgUser.User)
                 .HasForeignKey<TelegramUser>(user => user.Id)
@@ -94,15 +96,14 @@ public class ApplicationDbContext : DbContext {
                 .HasForeignKey<UserInfo>(user => user.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(user => user.Parameters)
-                .WithOne(param => param.User)
-                .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            //автовыдача Guid-а
-            //entity.Property(u => u.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
+            // Хранение Parameters как JSONB
+            entity.Property(u => u.Parameters)
+                .HasColumnType("jsonb")
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<Dictionary<UserParameter, Level>>(v, (JsonSerializerOptions?)null)!
+                );
         });
-
 
     }
 

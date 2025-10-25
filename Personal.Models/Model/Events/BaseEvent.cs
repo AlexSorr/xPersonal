@@ -23,14 +23,3 @@ public class EventSet : UserAttribute {
     public List<IBaseEvent> Events { get; set; } = new List<IBaseEvent>();
 
 }
-
-
-
-// builder.OwnsOne(t => t.UserProgressEvent, e =>
-// {
-//     e.Property(p => p.Changes)
-//         .HasColumnType("jsonb")
-//         .HasConversion(
-//             v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
-//             v => JsonSerializer.Deserialize<Dictionary<UserParameter, int>>(v, (JsonSerializerOptions?)null)!);
-// });

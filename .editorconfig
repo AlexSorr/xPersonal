@@ -1,0 +1,34 @@
+root = true
+
+[*.cs]
+
+########################################
+# ⚙️ Отключение ворнингов про XML
+########################################
+dotnet_diagnostic.CS1570.severity = none
+dotnet_diagnostic.CS1571.severity = none
+dotnet_diagnostic.CS1572.severity = none
+dotnet_diagnostic.CS1573.severity = none
+dotnet_diagnostic.CS1574.severity = none
+dotnet_diagnostic.CS1575.severity = none
+dotnet_diagnostic.CS1576.severity = none
+dotnet_diagnostic.CS1577.severity = none
+dotnet_diagnostic.CS1578.severity = none
+dotnet_diagnostic.CS1579.severity = none
+dotnet_diagnostic.CS1580.severity = none
+dotnet_diagnostic.CS1581.severity = none
+dotnet_diagnostic.CS1584.severity = none
+dotnet_diagnostic.CS1587.severity = none
+dotnet_diagnostic.CS1591.severity = none
+
+########################################
+# ⚙️ Отключение nullable предупреждений
+########################################
+dotnet_diagnostic.CS8600.severity = none
+dotnet_diagnostic.CS8601.severity = none
+dotnet_diagnostic.CS8602.severity = none
+dotnet_diagnostic.CS8603.severity = none
+dotnet_diagnostic.CS8604.severity = none
+dotnet_diagnostic.CS8605.severity = none
+dotnet_diagnostic.CS8618.severity = none
+dotnet_diagnostic.CS8629.severity = none
